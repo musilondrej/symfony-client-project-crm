@@ -1,3 +1,9 @@
+# Environment & config
+/.env
+/.env.local
+/.env.*.local
+
+
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -50,3 +56,29 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# IDE & editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*~
+*.swp
+*.swo
+.DS_Store
+
+# Docker / local dev
+/docker/data/
+/docker/logs/
+/docker-compose.override.yml
+/.docker.env
+
+# Frontend build tools
+/node_modules/
+/npm-debug.log
+/yarn-error.log
+/pnpm-lock.yaml
+/dist/
+/build/
+/public/hot
+compose.override.yaml
