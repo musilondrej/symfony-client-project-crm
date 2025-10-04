@@ -1,0 +1,11 @@
+# Context noise
+.git
+.gitignore
+node_modules
+vendor
+var
+.env.local
+.env.*.local
+Dockerfile*
+**/.DS_Store
+**/Thumbs.db
