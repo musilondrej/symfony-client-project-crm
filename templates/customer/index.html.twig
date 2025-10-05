@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<title>Customer index</title>
+
+{% block body %}
+    <h1>Customer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>VatId</th>
+                <th>IsActive</th>
+                <th>IsBillable</th>
+                <th>DefaultHourlyRate</th>
+                <th>Currency</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.description }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.website }}</td>
+                <td>{{ customer.vatId }}</td>
+                <td>{{ customer.isActive ? 'Yes' : 'No' }}</td>
+                <td>{{ customer.isBillable ? 'Yes' : 'No' }}</td>
+                <td>{{ customer.defaultHourlyRate }}</td>
+                <td>{{ customer.currency }}</td>
+                <td>{{ customer.createdAt ? customer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ customer.updatedAt ? customer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_customer_show', {'id': customer.id}) }}">show</a>
+                    <a href="{{ path('app_customer_edit', {'id': customer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="14">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_customer_new') }}">Create new</a>
+{% endblock %}
