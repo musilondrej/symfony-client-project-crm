@@ -1,5 +1,7 @@
 {% extends 'layouts/auth.html.twig' %}
-{% set title = 'login.title'|trans(domain='auth') %}
+{% block title %}
+    {{ 'login.title'|trans(domain='auth') }}
+{% endblock %}
 
 {% block auth_content %}
 	<form method="post">
@@ -13,15 +15,15 @@
 		<div class="d-flex flex-column gap-3">
 			<div>
 				<label for="username">
-                    {{ 'login.form.email.label'|trans(domain='auth') }}
-                </label>
+					{{ 'login.form.email.label'|trans(domain='auth') }}
+				</label>
 				<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
 			</div>
 
 			<div>
 				<label for="password">
-                    {{ 'login.form.password.label'|trans(domain='auth') }}
-                </label>
+					{{ 'login.form.password.label'|trans(domain='auth') }}
+				</label>
 				<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
 				<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
 			</div>
@@ -29,6 +31,16 @@
 			<button class="btn btn-lg btn-primary w-100" type="submit">
 				Sign in
 			</button>
+
+			<div>
+				<hr>
+
+				<div class="text-center">
+					<a href="{{ path('app_forgot_password_request') }}">
+						{{ 'login.form.forgot_password.label'|trans(domain='auth') }}
+					</a>
+				</div>
+			</div>
 		</div>
 	</form>
 {% endblock %}

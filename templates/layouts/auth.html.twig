@@ -1,17 +1,11 @@
 {% extends 'layouts/base.html.twig' %}
 
-{% block title %}
-
-{% endblock %}
-
 {% block body %}
 	<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 		<div class="card shadow-sm p-4" style="min-width: 380px;">
 			{% block auth_header %}
 				<h1 class="h4 mb-4 text-center">
-					{% block auth_heading %}
-                    {% if title is defined %}{{ title }}{% else %}Welcome{% endif %}
-					{% endblock %}
+					{{ block('title') }}
 				</h1>
 			{% endblock %}
 

@@ -1,5 +1,7 @@
 {% extends 'layouts/auth.html.twig' %}
-{% set title = 'register.title'|trans(domain='auth') %}
+{% block title %}
+    {{ 'register.title'|trans(domain='auth') }}
+{% endblock %}
 
 {% block auth_content %}
 	{% for flash_error in app.flashes('verify_email_error') %}

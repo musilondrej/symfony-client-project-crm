@@ -36,6 +36,8 @@ security:
             # switch_user: true
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/reset-password, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: ROLE_USER }
 
 when@test:

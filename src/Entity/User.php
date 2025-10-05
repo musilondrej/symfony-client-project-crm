@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -20,31 +21,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 180)]
+    #[Assert\Email(mode: Assert\Email::VALIDATION_MODE_HTML5)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: 'json', options: ['default' => '[]'])]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
+    #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ['default' => false])]
     private bool $isVerified = false;
+
+    #[ORM\Column(options: ['default' => true])]
+    private bool $isActive = true;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $createdAt;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $updatedAt;
+
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $lastLoginAt = null;
+
+    public function __construct()
+    {
+        $now = new \DateTimeImmutable();
+        $this->createdAt = $now;
+        $this->updatedAt = $now;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    public function __toString(): string
+    {
+        return $this->getDisplayName();
+    }
+
+    public function getDisplayName(): string
+    {
+        if ($this->name) {
+            return $this->name;
+        }
+
+        if ($this->email) {
+            return strstr($this->email, '@', true) ?: $this->email;
+        }
+
+        return "User #{$this->id}";
+    }
+
 
     public function getEmail(): ?string
     {
@@ -53,6 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): static
     {
+        $email = trim(mb_strtolower($email));
         $this->email = $email;
 
         return $this;
@@ -65,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = $name ? trim($name) : null;
 
         return $this;
     }
@@ -86,7 +122,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -123,7 +158,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __serialize(): array
     {
         $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+        $data["\0".self::class ."\0password"] = hash('crc32c', $this->password);
 
         return $data;
     }
@@ -144,5 +179,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $now = new \DateTimeImmutable();
+        $this->createdAt = $this->createdAt ?? $now;
+        $this->updatedAt = $this->updatedAt ?? $now;
+    }
+
+    #[ORM\PreUpdate]
+    public function onPreUpdate(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

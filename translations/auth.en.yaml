@@ -35,3 +35,34 @@ login:
         forgot_password:
             label: Forgot your password?
         submit: Sign in
+reset_password:
+    request:
+        title: Reset your password
+        heading: Forgot your password?
+        info: Enter your e-mail address and we will send you a link to reset your password.
+        form:
+            email:
+                label: E-mail
+                placeholder: Enter your e-mail
+            submit: Send password reset email
+        back_to_login: Back to login
+    check_email:
+        title: Check your e-mail
+        heading: Check your e-mail
+        info: If an account matching the e-mail you entered exists, you will receive an e-mail with a link to reset your password.
+        back_to_login: Back to login
+    reset:
+        title: Reset your password
+        heading: Reset your password
+        form:
+            new_password:
+                label: New password
+                placeholder: Enter your new password
+            confirm_password:
+                label: Confirm new password
+                placeholder: Confirm your new password
+            submit: Reset password
+    success:
+        title: Password reset successful
+        heading: Your password has been reset successfully.
+        back_to_login: Back to login

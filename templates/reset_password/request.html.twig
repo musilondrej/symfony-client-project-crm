@@ -1,0 +1,16 @@
+{% extends 'layouts/auth.html.twig' %}
+
+{% block title %}Reset your password
+{% endblock %}
+
+{% block auth_content %}
+	{% for flash_error in app.flashes('reset_password_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+
+	<div clas="d-flex flex-column gap-3">
+		{{ form_start(requestForm) }}
+		{{ form_row(requestForm.email) }}
+		{{ form_end(requestForm) }}
+	</div>
+{% endblock %}
