@@ -1,6 +1,6 @@
-form:
-    register:
-        title: Register
+register:
+    title: Register
+    form:
         email:
             label: E-mail
             confirm: Confirm e-mail
@@ -20,8 +20,10 @@ form:
             required: You must agree to the terms.
         submit: Register
 
-    login:
-        title: Login
+login:
+    title: Login
+    heading: Welcome back!
+    form:
         email:
             label: E-mail
             placeholder: Enter your e-mail

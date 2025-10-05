@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,12 +22,12 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'label' => 'form.register.email.label',
-                'invalid_message' => 'form.register.email.mismatch',
+                'label' => 'register.form.email.label',
+                'invalid_message' => 'form.email.mismatch',
                 'required' => true,
             ])
             ->add('name', TextType::class, [
-                'label' => 'form.register.name.label',
+                'label' => 'register.form.name.label',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'form.name.required']),
@@ -40,31 +41,33 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
-                'invalid_message' => 'form.register.password.mismatch',
+                'invalid_message' => 'register.form.password.mismatch',
                 'first_options' => [
-                    'label' => 'form.register.password.label',
+                    'label' => 'register.form.password.label',
                     'attr' => ['autocomplete' => 'new-password'],
                 ],
                 'second_options' => [
-                    'label' => 'form.register.password.confirm',
+                    'label' => 'register.form.password.confirm',
                     'attr' => ['autocomplete' => 'new-password'],
                 ],
                 'constraints' => [
-                    new NotBlank(['message' => 'form.register.password.required']),
+                    new NotBlank(['message' => 'register.form.password.required']),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'form.register.password.min',
+                        'minMessage' => 'register.form.password.min',
                         'max' => 4096,
                     ]),
                 ],
             ])
-
             ->add('agreeTerms', CheckboxType::class, [
-                'label' => 'form.register.terms.label',
+                'label' => 'register.form.terms.label',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue(['message' => 'form.terms.required']),
                 ],
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'register.form.submit',
             ]);
     }
 
@@ -72,7 +75,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'translation_domain' => 'forms',
+            'translation_domain' => 'auth',
         ]);
     }
 }

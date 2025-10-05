@@ -1,5 +1,9 @@
 twig:
-    file_name_pattern: '*.twig'
+    file_name_pattern: "*.twig"
+    globals:
+        app_name: "%env(APP_NAME)%"
+    form_themes:
+         - 'form/bootstrap_5_custom.html.twig'
 
 when@test:
     twig:

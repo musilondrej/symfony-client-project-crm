@@ -1,0 +1,10 @@
+{% extends "bootstrap_5_layout.html.twig" %}
+
+{% block button_widget %}
+    {% set btnClass = (attr.class is defined ? attr.class : '') %}
+    {% if 'btn' not in btnClass %}
+        {% set btnClass = (btnClass ~ ' btn btn-lg btn-primary')|trim %}
+    {% endif %}
+    {% set attr = attr|merge({'class': btnClass}) %}
+    {{ parent() }}
+{% endblock %}
