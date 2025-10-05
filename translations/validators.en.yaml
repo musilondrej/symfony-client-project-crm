@@ -1,0 +1,11 @@
+form:
+    email:
+        mismatch: The e-mails must match.
+    password:
+        mismatch: The passwords must match.
+    name:
+        required: Please enter your name.
+        min: Name must be at least {{ limit }} characters long.
+    password_required: Please enter a password.
+    password_min: Your password should be at least {{ limit }} characters.
+    terms_required: You must agree to the terms.

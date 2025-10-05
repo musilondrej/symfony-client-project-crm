@@ -1,0 +1,35 @@
+form:
+    register:
+        title: Register
+        email:
+            label: E-mail
+            confirm: Confirm e-mail
+            mismatch: The e-mails must match.
+        name:
+            label: Name
+            required: Please enter your name.
+            min: Name must be at least {{ limit }} characters long.
+        password:
+            label: Password
+            confirm: Confirm password
+            required: Please enter a password.
+            min: Your password should be at least {{ limit }} characters.
+            mismatch: The passwords must match.
+        terms:
+            label: I agree to the terms
+            required: You must agree to the terms.
+        submit: Register
+
+    login:
+        title: Login
+        email:
+            label: E-mail
+            placeholder: Enter your e-mail
+        password:
+            label: Password
+            placeholder: Enter your password
+        remember_me:
+            label: Remember me
+        forgot_password:
+            label: Forgot your password?
+        submit: Sign in
