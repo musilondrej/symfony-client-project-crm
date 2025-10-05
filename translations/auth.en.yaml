@@ -55,6 +55,9 @@ reset_password:
         title: Reset your password
         heading: Reset your password
         form:
+            password:
+                required: Please enter a password.
+                min: Your password should be at least {{ limit }} characters.
             new_password:
                 label: New password
                 placeholder: Enter your new password

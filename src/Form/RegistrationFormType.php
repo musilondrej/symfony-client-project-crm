@@ -15,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 class RegistrationFormType extends AbstractType
 {
@@ -57,6 +59,8 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'register.form.password.min',
                         'max' => 4096,
                     ]),
+                    new PasswordStrength(),
+                    new NotCompromisedPassword(),
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
