@@ -15,7 +15,7 @@ RUN apk add --no-cache \
 # PHP extensions
 RUN docker-php-ext-configure intl \
  && docker-php-ext-install -j"$(nproc)" \
-    intl pdo pdo_pgsql opcache zip
+     intl pdo pdo_pgsql opcache zip pcntl
 
 # Composer
 ENV COMPOSER_HOME=/tmp/composer \
