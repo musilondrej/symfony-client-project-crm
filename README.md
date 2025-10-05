@@ -1,28 +1,5 @@
 # Symfony Client Project CRM
 
-## Docker development
-
-Minimal setup with PHP-FPM, Nginx, Postgres and Mailpit.
-
-- App: http://localhost:8080
-- Mailpit UI: http://localhost:8025 (SMTP on 1025)
-
-First run:
-
-1. Copy env for Docker: create `.env` if missing and ensure DB connection matches Postgres service, for example:
-	`DATABASE_URL="postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8"`
-2. Build and start:
-	- docker compose up --build -d
-3. Install vendors inside the php container (if needed):
-	- docker compose exec php composer install
-4. Run migrations:
-	- docker compose exec php bin/console doctrine:migrations:migrate --no-interaction
-
-Tips:
-- Source code is bind-mounted; changes are seen immediately.
-- Use `docker compose logs -f web php database` for troubleshooting.
-- Stop: `docker compose down` (data persists in `database_data` volume).
-
 **Symfony Client Project CRM** is a clean and modern web application built with **Symfony** and **Doctrine ORM**.  
 It provides client, project, and task management features with integrated **time tracking** and **report exports**.  
 
@@ -105,3 +82,27 @@ symfony serve -d
 ```
 
 The application should now be accessible at `http://localhost:8080` when using Docker. If you run the Symfony CLI (`symfony serve`), it typically uses `http://localhost:8000`.
+
+---
+
+## Docker development
+
+Minimal setup with PHP-FPM, Nginx, Postgres and Mailpit.
+
+- App: http://localhost:8080
+- Mailpit UI: http://localhost:8025 (SMTP on 1025)
+
+First run:
+
+1. Copy env for Docker: create `.env` if missing and ensure DB connection matches Postgres service, for example:
+	`DATABASE_URL="postgresql://app:!ChangeMe!@database:5432/app?serverVersion=16&charset=utf8"`
+2. Build and start:
+	- docker compose up --build -d
+3. Install vendors inside the php container (if needed):
+	- docker compose exec php composer install
+4. Run migrations:
+	- docker compose exec php bin/console doctrine:migrations:migrate --no-interaction
+
+Tips:
+- Source code is bind-mounted; changes are seen immediately.
+- Stop: `docker compose down` (data persists in `database_data` volume).
